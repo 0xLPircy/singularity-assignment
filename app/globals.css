@@ -6,6 +6,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* added for smooth hover popups etc */
+  transition: 0.3s;
 }
 
 .bgImage {
