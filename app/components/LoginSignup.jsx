@@ -5,7 +5,7 @@ import Image from "next/image";
 import lhs1 from "@/assets/lhs1.png";
 import logo from "@/assets/logo.png";
 import arrow from "@/assets/arrowIcon.png";
-import { Lhs1, Lhs2 } from "@/app/components";
+import { Lhs1, Lhs2, OtpRend } from "@/app/components";
 
 const LoginSignup = ({ vis, onClosing, step, onNext }) => {
   const [num, SetNum] = useState(0);
@@ -14,6 +14,7 @@ const LoginSignup = ({ vis, onClosing, step, onNext }) => {
       onClosing();
     }
   };
+
   return (
     <>
       {vis == "true" && (
@@ -22,7 +23,7 @@ const LoginSignup = ({ vis, onClosing, step, onNext }) => {
           onClick={checkArea}
           id="blurArea"
         >
-          <div className="bg-[#ffffff] rounded-3xl place-self-center p-6 grid grid-flow-col grid-cols-2 w-[70%]">
+          <div className="bg-[#ffffff] rounded-3xl place-self-center p-6 grid grid-flow-col grid-cols-2 w-[75%]">
             {step == 1 && <Lhs1 />}
             {step == 2 && <Lhs2 />}
             <div className="grid h-fit">
@@ -98,12 +99,12 @@ const LoginSignup = ({ vis, onClosing, step, onNext }) => {
                 </div>
               )}
               {step == 2 && (
-                <div className="grid grid-flow-row px-20">
-                  <h1 className="text-2xl font-bold self-start h-fit">
+                <div className="grid grid-flow-row px-20 self-center py-24">
+                  <h1 className="text-2xl font-bold self-start h-fit pb-9">
                     just ensuring it's our genius student. enter the otp
                   </h1>
                   <form action="" className="grid grid-flow-row h-fit">
-                    <div className="grid grid-flow-col border-2 border-solid border-[#f0f2f4] rounded-xl bg-[#f0f2f4] w-[100%]">
+                    <div className="grid grid-flow-col mb-6 border-2 border-solid border-[#f0f2f4] rounded-xl bg-[#f0f2f4] w-[100%]">
                       {" "}
                       <h6 className="text-[#212121] self-center font-extralight w-fit pl-6">
                         +91
@@ -112,43 +113,13 @@ const LoginSignup = ({ vis, onClosing, step, onNext }) => {
                         disabled
                         type="text"
                         value={num}
-                        className="py-2 rounded-xl bg-[#f0f2f4]"
+                        className="py-3 rounded-xl bg-[#f0f2f4]"
                       />
                       <h6 className="text-[#0d7bff] underline place-self-center pr-6">
                         edit
                       </h6>
                     </div>
-                    <div></div>
-                    {num == 0 && (
-                      <button
-                        onClick={onNext}
-                        className="bg-[#0d7dff] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72"
-                      >
-                        <h6 className="self-center place-self-end">send otp</h6>{" "}
-                        <Image
-                          src={arrow}
-                          height={24}
-                          width={24}
-                          className="self-center place-self-start"
-                        />
-                      </button>
-                    )}
-                    {num > 0 && (
-                      <button
-                        disabled
-                        className="bg-[#85b9f4] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72"
-                      >
-                        <h6 className="self-center place-self-end">
-                          verify otp
-                        </h6>{" "}
-                        <Image
-                          src={arrow}
-                          height={24}
-                          width={24}
-                          className="self-center place-self-start"
-                        />
-                      </button>
-                    )}
+                    <OtpRend onClosing={onClosing} />
                   </form>
                 </div>
               )}

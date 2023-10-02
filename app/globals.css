@@ -14,3 +14,9 @@
   background: url(../assets/bg.png) fixed no-repeat;
   background-size: cover;
 }
+
+/* OTP */
+.spin-button-none::-webkit-inner-spin-button,
+.spin-button-none::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
