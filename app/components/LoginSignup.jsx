@@ -5,9 +5,9 @@ import Image from "next/image";
 import lhs1 from "@/assets/lhs1.png";
 import logo from "@/assets/logo.png";
 import arrow from "@/assets/arrowIcon.png";
-import { Lhs1 } from "@/app/components";
+import { Lhs1, Lhs2 } from "@/app/components";
 
-const LoginSignup = ({ vis, onClosing }) => {
+const LoginSignup = ({ vis, onClosing, step, onNext }) => {
   const [num, SetNum] = useState(0);
   const checkArea = (e) => {
     if (e.target.id === "blurArea") {
@@ -23,7 +23,8 @@ const LoginSignup = ({ vis, onClosing }) => {
           id="blurArea"
         >
           <div className="bg-[#ffffff] rounded-3xl place-self-center p-6 grid grid-flow-col grid-cols-2 w-[70%]">
-            <Lhs1 />
+            {step == 1 && <Lhs1 />}
+            {step == 2 && <Lhs2 />}
             <div className="grid h-fit">
               <Image
                 src={cross}
@@ -32,63 +33,125 @@ const LoginSignup = ({ vis, onClosing }) => {
                 onClick={onClosing}
                 className="self-start place-self-end"
               />
-              <div className="grid grid-flow-row px-20">
-                <h1 className="text-2xl font-bold self-start h-fit py-24">
-                  drop your number, we've got the rest!
-                </h1>
-                <form action="" className="grid grid-flow-row h-fit">
-                  <label htmlFor="" className="font-light text-sm pb-2">
-                    enter your mobile number
-                  </label>
-                  <div className="grid grid-flow-col border-2 border-solid border-[#cccccc] rounded-xl bg-[#84919f00] w-[100%]">
-                    {" "}
-                    <select
-                      name="dropdown"
-                      className="w-fit py-2 rounded-xl self-center place-self-end pl-3"
-                    >
-                      {countryCodes.map((code) => (
-                        <option value={code.dial_code}>{code.dial_code}</option>
-                      ))}
-                    </select>
-                    <h6 className="text-[#d3d6d6] text-2xl font-extralight w-fit">
-                      |
-                    </h6>
-                    <input
-                      type="text"
-                      placeholder="98xxxxxxxx"
-                      className="pl-2 py-2 rounded-xl"
-                      onChange={(e) => {
-                        SetNum(e.target.value);
-                      }}
-                    />
-                  </div>
-                  {num > 0 && (
-                    <button className="bg-[#0d7dff] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72">
-                      <h6 className="self-center place-self-end">send otp</h6>{" "}
-                      <Image
-                        src={arrow}
-                        height={24}
-                        width={24}
-                        className="self-center place-self-start"
+              {step == 1 && (
+                <div className="grid grid-flow-row px-20">
+                  <h1 className="text-2xl font-bold self-start h-fit py-24">
+                    drop your number, we've got the rest!
+                  </h1>
+                  <form action="" className="grid grid-flow-row h-fit">
+                    <label htmlFor="" className="font-light text-sm pb-2">
+                      enter your mobile number
+                    </label>
+                    <div className="grid grid-flow-col border-2 border-solid border-[#cccccc] rounded-xl bg-[#84919f00] w-[100%]">
+                      {" "}
+                      <select
+                        name="dropdown"
+                        className="w-fit py-2 rounded-xl self-center place-self-end pl-3"
+                      >
+                        {countryCodes.map((code) => (
+                          <option value={code.dial_code}>
+                            {code.dial_code}
+                          </option>
+                        ))}
+                      </select>
+                      <h6 className="text-[#d3d6d6] text-2xl font-extralight w-fit">
+                        |
+                      </h6>
+                      <input
+                        type="text"
+                        placeholder="98xxxxxxxx"
+                        className="pl-2 py-2 rounded-xl"
+                        onChange={(e) => {
+                          SetNum(e.target.value);
+                        }}
                       />
-                    </button>
-                  )}
-                  {num == 0 && (
-                    <button
-                      disabled
-                      className="bg-[#85b9f4] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72"
-                    >
-                      <h6 className="self-center place-self-end">send otp</h6>{" "}
-                      <Image
-                        src={arrow}
-                        height={24}
-                        width={24}
-                        className="self-center place-self-start"
+                    </div>
+                    {num > 0 && (
+                      <button
+                        onClick={onNext}
+                        className="bg-[#0d7dff] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72"
+                      >
+                        <h6 className="self-center place-self-end">send otp</h6>{" "}
+                        <Image
+                          src={arrow}
+                          height={24}
+                          width={24}
+                          className="self-center place-self-start"
+                        />
+                      </button>
+                    )}
+                    {num == 0 && (
+                      <button
+                        disabled
+                        className="bg-[#85b9f4] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72"
+                      >
+                        <h6 className="self-center place-self-end">send otp</h6>{" "}
+                        <Image
+                          src={arrow}
+                          height={24}
+                          width={24}
+                          className="self-center place-self-start"
+                        />
+                      </button>
+                    )}
+                  </form>
+                </div>
+              )}
+              {step == 2 && (
+                <div className="grid grid-flow-row px-20">
+                  <h1 className="text-2xl font-bold self-start h-fit">
+                    just ensuring it's our genius student. enter the otp
+                  </h1>
+                  <form action="" className="grid grid-flow-row h-fit">
+                    <div className="grid grid-flow-col border-2 border-solid border-[#f0f2f4] rounded-xl bg-[#f0f2f4] w-[100%]">
+                      {" "}
+                      <h6 className="text-[#212121] self-center font-extralight w-fit pl-6">
+                        +91
+                      </h6>
+                      <input
+                        disabled
+                        type="text"
+                        value={num}
+                        className="py-2 rounded-xl bg-[#f0f2f4]"
                       />
-                    </button>
-                  )}
-                </form>
-              </div>
+                      <h6 className="text-[#0d7bff] underline place-self-center pr-6">
+                        edit
+                      </h6>
+                    </div>
+                    <div></div>
+                    {num == 0 && (
+                      <button
+                        onClick={onNext}
+                        className="bg-[#0d7dff] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72"
+                      >
+                        <h6 className="self-center place-self-end">send otp</h6>{" "}
+                        <Image
+                          src={arrow}
+                          height={24}
+                          width={24}
+                          className="self-center place-self-start"
+                        />
+                      </button>
+                    )}
+                    {num > 0 && (
+                      <button
+                        disabled
+                        className="bg-[#85b9f4] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72"
+                      >
+                        <h6 className="self-center place-self-end">
+                          verify otp
+                        </h6>{" "}
+                        <Image
+                          src={arrow}
+                          height={24}
+                          width={24}
+                          className="self-center place-self-start"
+                        />
+                      </button>
+                    )}
+                  </form>
+                </div>
+              )}
             </div>
           </div>
         </div>

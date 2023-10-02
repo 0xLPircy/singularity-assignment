@@ -5,8 +5,10 @@ import React, { useState } from "react";
 
 export default function Home() {
   const [vis, SetVis] = useState("false");
+  const [step, SetStep] = useState(0);
   const changeVis = () => {
     SetVis("true");
+    SetStep(1);
   };
   console.log(vis);
   return (
@@ -23,7 +25,15 @@ export default function Home() {
           Book a Free Session!
         </button>
       </div>
-      <LoginSignup vis={vis} onClosing={() => SetVis("false")} />
+      <LoginSignup
+        vis={vis}
+        onClosing={() => {
+          SetVis("false");
+          SetStep(0);
+        }}
+        onNext={() => SetStep(step + 1)}
+        step={step}
+      />
     </div>
   );
 }
