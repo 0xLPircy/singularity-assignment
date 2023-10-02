@@ -1,11 +1,14 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import cross from "@/assets/crossIcon.png";
 import Image from "next/image";
 import lhs1 from "@/assets/lhs1.png";
 import logo from "@/assets/logo.png";
 import arrow from "@/assets/arrowIcon.png";
+import { Lhs1 } from "@/app/components";
 
 const LoginSignup = ({ vis, onClosing }) => {
+  const [num, SetNum] = useState(0);
   const checkArea = (e) => {
     if (e.target.id === "blurArea") {
       onClosing();
@@ -20,33 +23,7 @@ const LoginSignup = ({ vis, onClosing }) => {
           id="blurArea"
         >
           <div className="bg-[#ffffff] rounded-3xl place-self-center p-6 grid grid-flow-col grid-cols-2 w-[70%]">
-            <div className="bg-[#f0f2f5] rounded-3xl grid grid-flow-row text-center w-[100%] p-6">
-              <Image
-                src={logo}
-                height={60}
-                width={180}
-                className="place-self-start"
-              />
-              <Image
-                src={lhs1}
-                height={300}
-                width={300}
-                className="place-self-center py-16"
-              />
-              <h1 className="text-3xl place-self-center font-bold">
-                kickstart your success in
-              </h1>
-              <h1 className="text-3xl place-self-center font-bold py-1">
-                JEE/NEET/GRADE{" "}
-              </h1>
-              <h1 className="text-3xl place-self-center font-bold">
-                academics{" "}
-              </h1>
-
-              <h1 className="text-3xl font-bold text-[#0d7dff] place-self-center py-3">
-                we're here for you.
-              </h1>
-            </div>
+            <Lhs1 />
             <div className="grid h-fit">
               <Image
                 src={cross}
@@ -80,17 +57,36 @@ const LoginSignup = ({ vis, onClosing }) => {
                       type="text"
                       placeholder="98xxxxxxxx"
                       className="pl-2 py-2 rounded-xl"
+                      onChange={(e) => {
+                        SetNum(e.target.value);
+                      }}
                     />
                   </div>
-                  <button className="bg-[#0d7dff] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72">
-                    <h6 className="self-center place-self-end">send otp</h6>{" "}
-                    <Image
-                      src={arrow}
-                      height={24}
-                      width={24}
-                      className="self-center place-self-start"
-                    />
-                  </button>
+                  {num > 0 && (
+                    <button className="bg-[#0d7dff] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72">
+                      <h6 className="self-center place-self-end">send otp</h6>{" "}
+                      <Image
+                        src={arrow}
+                        height={24}
+                        width={24}
+                        className="self-center place-self-start"
+                      />
+                    </button>
+                  )}
+                  {num == 0 && (
+                    <button
+                      disabled
+                      className="bg-[#85b9f4] rounded-xl grid grid-flow-col text-md font-bold text-[#eeeeee] py-3 self-end place-self-center w-[100%] mt-72"
+                    >
+                      <h6 className="self-center place-self-end">send otp</h6>{" "}
+                      <Image
+                        src={arrow}
+                        height={24}
+                        width={24}
+                        className="self-center place-self-start"
+                      />
+                    </button>
+                  )}
                 </form>
               </div>
             </div>
